@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERM = 69;
     private static final String TAG = "FaceTracker";
     private SwitchCompat mSwitch;
-    private View mLight;
+    private ImageView mLight;
     private FaceDetector mFaceDetector;
     private CameraSource mCameraSource;
     private final AtomicBoolean updating = new AtomicBoolean(false);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSwitch = (SwitchCompat) findViewById(R.id.switchButton);
         mLight = findViewById(R.id.light);
-        mEmoticon = (TextView) findViewById(R.id.emoticon);
+//        mEmoticon = (TextView) findViewById(R.id.emoticon);
 
         // check that the play services are installed
         PlayServicesUtil.isPlayServicesAvailable(this, 69);
@@ -157,35 +158,40 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLeftEyeClosed(LeftEyeClosedEvent e) {
-        setEmoji(R.string.emoji_winking);
-        if (mSwitch.isChecked() && catchUpdatingLock()) {
-            mSwitch.setChecked(false);
-            mLight.setBackgroundColor(ContextCompat.getColor(this, R.color.green));
+//        setEmoji(R.string.emoji_winking);
+//        if (mSwitch.isChecked() && catchUpdatingLock()) {
+//            mSwitch.setChecked(false);
+//            mLight.setBackgroundColor(ContextCompat.getColor(this, R.color.green));
+            mLight.setImageResource(R.drawable.face_tracker_right);
             releaseUpdatingLock();
-        }
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRightEyeClosed(RightEyeClosedEvent e) {
-        setEmoji(R.string.emoji_winking);
-        if (!mSwitch.isChecked() && catchUpdatingLock()) {
-            mSwitch.setChecked(true);
-            mLight.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
+//        setEmoji(R.string.emoji_winking);
+//        if (!mSwitch.isChecked() && catchUpdatingLock()) {
+//            mSwitch.setChecked(true);
+//            mLight.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
+            mLight.setImageResource(R.drawable.face_tracker_left);
+
             releaseUpdatingLock();
-        }
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNeutralFace(NeutralFaceEvent e) {
-        setEmoji(R.string.emoji_neutral);
+//        setEmoji(R.string.emoji_neutral);
+        mLight.setImageResource(R.drawable.face_tracker);
+
     }
 
-    private void setEmoji(int resource) {
-        if (!mEmoticon.getText().equals(getString(resource)) && catchUpdatingLock()) {
-            mEmoticon.setText(resource);
-            releaseUpdatingLock();
-        }
-    }
+//    private void setEmoji(int resource) {
+//        if (!mEmoticon.getText().equals(getString(resource)) && catchUpdatingLock()) {
+//            mEmoticon.setText(resource);
+//            releaseUpdatingLock();
+//        }
+//    }
 
     private boolean catchUpdatingLock() {
         // set updating and return previous value

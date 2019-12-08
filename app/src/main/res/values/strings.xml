@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Face Tracker</string>
-    <string name="emoji_neutral">\ud83d\ude10</string>
-    <string name="emoji_winking">\ud83d\ude09</string>
 </resources>

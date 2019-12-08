@@ -7,3 +7,9 @@
 <p align="center">
      Android Face-Tracking Playground
 </p>
+
+### Useful links:
+1. [Figma design](https://www.figma.com/file/hPxjLIa7abqo0gkTrMbBRX/Untitled?node-id=0%3A1)
+
+### Used Libs (API / FRAMEWORK):
+1. [Machine Learning Kit](https://firebase.google.com/docs/ml-kit)
